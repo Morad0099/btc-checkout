@@ -1,0 +1,75 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-transaction-cancelled',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="min-h-screen bg-gray-900 text-gray-100">
+      <div class="max-w-3xl mx-auto px-4 py-12">
+        <div class="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+          <!-- Cancel Animation -->
+          <div class="text-center p-8">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 mb-6 animate-cancel">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white mb-2">Transaction Failed</h1>
+            <p class="text-gray-400 mb-8">Your Bitcoin payment has been cancelled.</p>
+          </div>
+
+          <!-- Info Box -->
+          <div class="border-t border-gray-700 px-6 py-8">
+            <div class="max-w-lg mx-auto space-y-6">
+              <div class="bg-gray-700/50 rounded-xl p-4">
+                <p class="text-center text-gray-300">
+                  No charges have been made to your account. Feel free to try again or choose a different payment method.
+                </p>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="grid gap-4 sm:flex sm:gap-3">
+                <button 
+                  (click)="tryAgain()"
+                  class="w-full sm:flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-xl font-medium text-white transition-all focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  Try Again
+                </button>
+                <button 
+                  (click)="goHome()"
+                  class="w-full sm:w-auto px-6 py-3 border border-gray-600 hover:bg-gray-700 rounded-xl font-medium text-gray-400 transition-colors"
+                >
+                  Return to Home
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    @keyframes cancel-shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+    .animate-cancel {
+      animation: cancel-shake 0.5s ease-in-out;
+    }
+  `]
+})
+export class TransactionCancelledComponent {
+  constructor(private router: Router) {}
+
+  tryAgain() {
+    this.router.navigate(['/bitcoin-payment']);
+  }
+
+  goHome() {
+    this.router.navigate(['/mobile']);
+  }
+}

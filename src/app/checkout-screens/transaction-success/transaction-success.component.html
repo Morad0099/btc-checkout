@@ -1,0 +1,132 @@
+<div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="flex-1 p-6">
+    <div class="max-w-md mx-auto">
+      <!-- Success Animation -->
+      <div class="flex justify-center mb-8">
+        <div
+          class="w-24 h-24 rounded-full bg-green-500/10 flex items-center justify-center animate-success"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-12 h-12 text-green-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-white mb-2">Payment Successful!</h1>
+        <p class="text-gray-400">
+          Your transaction has been completed successfully.
+        </p>
+      </div>
+
+      <!-- Transaction Details -->
+      <div class="bg-gray-800/50 rounded-xl p-6 mb-8 space-y-4">
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400">Status</span>
+          <div class="flex items-center gap-2">
+            <span [class]="getStatusColor(transactionDetails?.status || '')">
+              {{ transactionDetails?.status }}
+            </span>
+            <button *ngIf="shouldShowCheckAgainButton(transactionDetails?.status || '')"
+                    (click)="checkAgain()"
+                    class="text-purple-400 hover:text-purple-300 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="text-center mb-4">
+          <p class="text-gray-400">{{ getStatusMessage(transactionDetails?.status || '') }}</p>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400">Payment Method</span>
+          <span class="text-white font-medium">Bitcoin</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400">Amount</span>
+          <div class="text-right">
+            <div class="text-white font-medium">
+              {{ transactionDetails?.amount }}
+              {{ transactionDetails?.currency }}
+            </div>
+            <div class="text-sm text-gray-400">
+              ≈ {{ transactionDetails?.usdAmount | currency : "USD" }}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400">Transaction ID</span>
+          <span class="text-white font-mono text-sm">{{
+            transactionDetails?.transactionId
+          }}</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400">Date & Time</span>
+          <span class="text-white">{{
+            transactionDetails?.date | date : "medium"
+          }}</span>
+        </div>
+      </div>
+
+      <!-- Gift Card Info -->
+      <div
+        class="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 mb-8"
+      >
+        <div class="flex items-start gap-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-purple-400 mt-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            Your gift card details have been sent to your email address. Please
+            check your inbox.
+          </p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="space-y-3">
+        <button
+          (click)="goHome()"
+          class="w-full py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-xl font-semibold text-white transition-all"
+        >
+          Return to Home
+        </button>
+        <!-- <button
+          (click)="viewOrder()"
+          class="w-full py-3 border border-gray-700 hover:bg-gray-800 rounded-xl font-medium text-gray-300 transition-colors"
+        >
+          View Order Details
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
